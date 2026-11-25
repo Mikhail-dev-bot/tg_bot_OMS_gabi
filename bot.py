@@ -1,4 +1,4 @@
-"""Точка входа: запускает бота (long polling) и маленький HTTP-сервер для Render."""
+"""Точка входа: запускает бота (long polling)."""
 import asyncio
 import logging
 import os
@@ -16,7 +16,7 @@ log = logging.getLogger("bot")
 
 
 async def start_health_server() -> web.AppRunner | None:
-    """Render для Web Service ждёт открытый порт. Отвечаем «ok» на GET /."""
+    """Если задан PORT (платформа ждёт открытый порт), отвечаем «ok» на GET /. На Amvera не нужен.."""
     port = os.getenv("PORT")
     if not port:
         return None

@@ -22,8 +22,10 @@ PAY_PHONE = os.getenv("PAY_PHONE", "+7 000 000-00-00")
 PAY_BANK = os.getenv("PAY_BANK", "Банк")
 PREPAY_PERCENT = int(os.getenv("PREPAY_PERCENT", "50"))
 
-# Путь к базе SQLite. На Render укажите путь на постоянном диске, например /var/data/orders.db
-DB_PATH = os.getenv("DB_PATH", str(BASE_DIR / "data" / "orders.db"))
+# Путь к базе SQLite. На Amvera постоянное хранилище смонтировано в /data (см. amvera.yml),
+# поэтому база кладётся туда и переживает перезапуски и обновления.
+_DEFAULT_DB = "/data/orders.db" if os.path.isdir("/data") else str(BASE_DIR / "data" / "orders.db")
+DB_PATH = os.getenv("DB_PATH", _DEFAULT_DB)
 
 # Часовой пояс, по которому считаются даты заказа
 TZ = os.getenv("TZ_NAME", "Europe/Moscow")
